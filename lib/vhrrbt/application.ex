@@ -6,7 +6,7 @@ defmodule VhrRbt.Application do
   use Application
 
   def start(_type, _args) do
-    children = [
+    children = [VhrRbt.SendData,
       # Start the Telemetry supervisor
       VhrRbtWeb.Telemetry,
       # Start the PubSub system

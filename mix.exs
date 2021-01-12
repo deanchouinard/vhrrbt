@@ -33,6 +33,7 @@ defmodule VhrRbt.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:httpoison, "~> 1.7"},
       {:phoenix, "~> 1.5.7"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
