@@ -1,7 +1,7 @@
 defmodule VhrRbt.SendData do
 
 use GenServer
-  @vhr_web_url   Application.get_env(:vhrtb_rbt, :send_data_url)
+  @vhr_web_url   Application.get_env(:vhrrbt, :send_data_url)
   
   # Client
 
@@ -17,8 +17,8 @@ use GenServer
     GenServer.call(__MODULE__, :send_photo)
   end
 
-  def send_env(env_data) do
-    GenServer.call(__MODULE__, {:send_env, env_data})
+  def send_env(body) do
+    GenServer.call(__MODULE__, {:send_env, body})
   end
 
   # Server (callbacks)
@@ -37,12 +37,13 @@ use GenServer
   end
 
   @impl true
-  def handle_call({:send_env, env_data}, _from, state) do
-    %{:temp => temp, :humid => humid} = env_data
-    body ="{\"temp\" : #{temp}, \"humid\": #{humid}}"
+  def handle_call({:send_env, body}, _from, state) do
+    #%{:temp => temp, :humid => humid} = env_data
+    # body ="{\"temp\" : #{temp}, \"humid\": #{humid}}"
     url = "#{@vhr_web_url}/api/env"
-    response = HTTPoison.post url, body,
-      [{"Content-Type", "application/json"}]
+    response = HTTPoison.post url, body, [{"Content-Type", "application/json"}]
+    IO.inspect response, label: "RESPONSE"
+
     {:reply, {response}, state}
   end
 
