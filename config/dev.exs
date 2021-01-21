@@ -48,3 +48,21 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :vhrrbt, send_data_url: 'http://localhost:4000'
+
+
+#case Mix.Project.config()[:target] do
+case Mix.target() do
+  :host ->
+    config :vhrrbt, VhrRbt.Light, [
+      implementation: VhrRbt.HostLightImpl
+    ]
+  :rpi0 ->
+    config :vhrrbt, VhrRbt.Light, [
+      implementation: VhrRbt.ElixirAleLightImpl,
+      pin: 18
+    ]
+  nil ->
+    config :vhrrbt, VhrRbt.Light, [
+      implementation: VhrRbt.HostLightImpl
+    ]
+end
