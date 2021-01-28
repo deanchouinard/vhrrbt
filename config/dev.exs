@@ -66,3 +66,8 @@ case Mix.target() do
       implementation: VhrRbt.HostLightImpl
     ]
 end
+
+config :vhrrbt, VhrRbt.Sensor, [
+  implementation: VhrRbt.BME
+]
+

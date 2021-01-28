@@ -21,8 +21,8 @@ defmodule VhrRbt.Driver do
     {:ok, vdate} = DateTime.now("Etc/UTC")
     vdate = DateTime.to_string(vdate)
     external_ip = VhrRbt.NetInfo.external_ip
-    %VhrRbt.Bme280Sensor{temp: temp, humid: humid, batt: batt} =
-       VhrRbt.Bme280Sensor.read_sensor()
+    %VhrRbt.Sensor{temp: temp, humid: humid, batt: batt} =
+       VhrRbt.Sensor.read()
 
     body = "{\"date\" : \"#{vdate}\", \"ext_ip\" : \"#{external_ip}\",
       \"temp\" : #{temp}, \"humid\" : #{humid}, \"batt\" : #{batt}}"

@@ -1,9 +1,16 @@
-defmodule VhrRbt.Bme280Sensor do
-  defstruct ~w[temp humid batt]a
+defmodule VhrRbt.BME do
 
-  def read_sensor() do
-    struct!(__MODULE__, %{temp: 70, humid: 50, batt: 75})
+  @behaviour VhrRbt.Sensor
 
+  @impl VhrRbt.Sensor
+  def init(_) do
+    {:ok, :off}
+    end
+
+  @impl VhrRbt.Sensor
+  def read() do
+    {:ok, struct!(VhrRbt.Sensor, %{temp: 70, humid: 50, batt: 75})}
+    #    IO.puts "read"
       #VhrRbt.SendData.send_env(%{temp: 70, humid: 50})
   end
 
