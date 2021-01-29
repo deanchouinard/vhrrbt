@@ -8,7 +8,7 @@ defmodule VhrRbt.BME do
     end
 
   @impl VhrRbt.Sensor
-  def read() do
+  def read(_) do
     {:ok, struct!(VhrRbt.Sensor, %{temp: 70, humid: 50, batt: 75})}
     #    IO.puts "read"
       #VhrRbt.SendData.send_env(%{temp: 70, humid: 50})

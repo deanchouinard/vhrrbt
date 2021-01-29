@@ -56,18 +56,17 @@ case Mix.target() do
     config :vhrrbt, VhrRbt.Light, [
       implementation: VhrRbt.HostLightImpl
     ]
-  :rpi0 ->
+    config :vhrrbt, VhrRbt.Sensor, [
+      implementation: VhrRbt.BME
+    ]
+
+  :rpi3 ->
     config :vhrrbt, VhrRbt.Light, [
       implementation: VhrRbt.ElixirAleLightImpl,
       pin: 18
     ]
-  nil ->
-    config :vhrrbt, VhrRbt.Light, [
-      implementation: VhrRbt.HostLightImpl
+    config :vhrrbt, VhrRbt.Sensor, [
+      implementation: VhrRbt.BMP
     ]
 end
-
-config :vhrrbt, VhrRbt.Sensor, [
-  implementation: VhrRbt.BME
-]
 

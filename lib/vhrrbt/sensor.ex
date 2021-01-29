@@ -8,7 +8,7 @@ defmodule VhrRbt.Sensor do
   @callback init(opts :: Keyword.t()) :: {:ok, private} | :error
 
   @doc "Callback to read sensor"
-  @callback read() :: {:ok, __MODULE__} | :error
+  @callback read(private) :: private :: {:ok, __MODULE__} | :error
 
   use GenServer
 
@@ -39,11 +39,11 @@ defmodule VhrRbt.Sensor do
     IO.inspect impl, label: "IMPL"
     {:ok, priv} = impl.init(args)
     IO.inspect priv, label: "PRIV"
-    {:ok, %{impl: impl, priv: priv}}
+    {:ok, %{impl: impl, priv: priv, bmp: nil}}
   end
 
   def handle_call(:read, _from, state) do
-    {:ok, env_data} = state.impl.read()
+    {:ok, env_data} = state.impl.read(state.bmp)
     #{:noreply, %{state | priv: :on}}
     {:reply, env_data, state}
   end

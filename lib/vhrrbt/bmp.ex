@@ -1,46 +1,39 @@
-defmodule BMP do
+defmodule VhrRbt.BMP do
   @moduledoc """
   Documentation for `BMP`.
   """
+  #  use GenServer
 
-  @doc """
-  Hello world.
+  @behaviour VhrRbt.Sensor
 
-  ## Examples
-
-      iex> BMP.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end  
-
-  use GenServer
-
-  def start do
-    GenServer.start(__MODULE__, nil, name: __MODULE__)
-  end  
+  # def start do
+  #   GenServer.start(__MODULE__, nil, name: __MODULE__)
+  # end  
 
   # def start do
   #   {:ok, bmp} = BMP280.start_link(bus_name: "i2c-1", bus_address: 0x76)
   # end  
 
-
+  @impl VhrRbt.Sensor
   def init(_) do
     {:ok, bmp} = BMP280.start_link(bus_name: "i2c-1", bus_address: 0x76)
     {:ok, %{bmp: bmp}}
   end
 
-
-  def read do
-    GenServer.cast(__MODULE__, {:read})
+  @impl VhrRbt.Sensor
+  def read(bmp) do
+    {:ok, %BMP280.Measurement{
+      humidity_rh: humid,
+      temperature_c: temp}} = BMP280.read(bmp)
+    env_data = struct!(VhrRbt.Sensor, %{temp: temp, humid: humid, batt: 75})
+    {:ok, env_data}
   end
 
-  def handle_cast({:read}, state) do
-    IO.inspect BMP280.read(state.bmp)
-    {:noreply, state}
-  end
-
+  # def handle_call({:read}, _from, state) do
+  #   {:ok, %BMP280.Measurement{
+  #     humidity_rh: humid,
+  #     temperature_c: temp}} = BMP280.read(state.bmp)
+  #   env_data = struct!(VhrRbt.Sensor, %{temp: temp, humid: humid, batt: 75})
+  #   {:reply, env_data, state}
+  # end
 end
-  
