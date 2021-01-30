@@ -14,7 +14,7 @@ use GenServer
   end
 
   def send_photo() do
-    GenServer.call(__MODULE__, :send_photo)
+    GenServer.call(__MODULE__, :send_photo, 20_000)
   end
 
   def send_env(body) do
@@ -52,7 +52,13 @@ use GenServer
     headers = ""
     options = ""
     url = "#{@vhr_web_url}/hello"
-    file_name = "MembershipCard.png"
+    file_name = VhrRbt.current_datetime_string()
+      |> String.replace(" ", "")
+      |> String.replace(":", "")
+    file_name = file_name <> ".jpg"
+    VhrRbt.Photo.take_pic(file_name)
+
+    # file_name = "MembershipCard.png"
     #    response = HTTPoison.post url, "{\"body\": #{file_data}}", [{"Content-Type", "application/octet-stream" }]
     #    response = HTTPoison.post(url, {:file, "MembershipCard.png"})
     # response = HTTPoison.post!(url, 
@@ -64,6 +70,7 @@ use GenServer
     # {"name", "value"}]})
     response = HTTPoison.post(url, {:multipart, [{"id", "87937"}, {:file, file_name, {"form-data", [{"name", "photo"}, {"filename", Path.basename(file_name)}]}, []}]})
     
+    File.rm(file_name)
     {:reply, {response}, state}
   end
 end

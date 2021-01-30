@@ -37,9 +37,11 @@ defmodule VhrRbt.Sensor do
   def init(args) do
     impl = Keyword.fetch!(args, :implementation)
     IO.inspect impl, label: "IMPL"
-    {:ok, priv} = impl.init(args)
+    #{:ok, priv} = impl.init(args)
+    priv = :on
+    {:ok, bmp} = impl.init(args)
     IO.inspect priv, label: "PRIV"
-    {:ok, %{impl: impl, priv: priv, bmp: nil}}
+    {:ok, %{impl: impl, priv: priv, bmp: bmp}}
   end
 
   def handle_call(:read, _from, state) do

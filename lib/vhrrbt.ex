@@ -8,4 +8,9 @@ defmodule VhrRbt do
   """
   #defstruct ~w[name category instructions raw compiled generators checker]a
   defstruct ~w[location sensor temp humid batt ip_addr datetime]a
+
+  def current_datetime_string() do
+    {:ok, vdate} = DateTime.now("Etc/UTC")
+    vdate = DateTime.to_string(vdate)
+  end
 end

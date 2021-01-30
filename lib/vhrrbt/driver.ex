@@ -12,14 +12,13 @@ defmodule VhrRbt.Driver do
   end
 
   def init(_) do
-    # :timer.send_interval(50000, :ping)
+    :timer.send_interval(50000, :ping)
     # {:ok, %SimpleCtrl{}}
     {:ok, []}
   end
 
   def handle_info(:ping, state) do
-    {:ok, vdate} = DateTime.now("Etc/UTC")
-    vdate = DateTime.to_string(vdate)
+    vdate = VhrRbt.current_datetime_string()
     external_ip = VhrRbt.NetInfo.external_ip
     %VhrRbt.Sensor{temp: temp, humid: humid, batt: batt} =
        VhrRbt.Sensor.read()
@@ -31,6 +30,7 @@ defmodule VhrRbt.Driver do
     IO.puts "Ping..."
     {:noreply, state}
   end
+
 
 end
 

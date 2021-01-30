@@ -7,6 +7,7 @@ defmodule VhrRbt.Application do
 
   def start(_type, _args) do
     children = [VhrRbt.SendData, VhrRbt.Driver, VhrRbt.Light,
+      VhrRbt.Sensor,
       # Start the Telemetry supervisor
       VhrRbtWeb.Telemetry,
       # Start the PubSub system
