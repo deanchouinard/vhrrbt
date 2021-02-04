@@ -10,5 +10,6 @@ defmodule VhrRbtWeb.Router do
     post "/env", ApiController, :env
     get "/env", ApiController, :env
     get "/ping", ApiController, :ping
+    get "/take_picture", ApiController, :take_picture
   end
 end

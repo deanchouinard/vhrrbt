@@ -51,12 +51,16 @@ use GenServer
   def handle_call(:send_photo, _from, state) do
     headers = ""
     options = ""
-    url = "#{@vhr_web_url}/hello"
+    url = "#{@vhr_web_url}/photo"
     file_name = VhrRbt.current_datetime_string()
       |> String.replace(" ", "")
       |> String.replace(":", "")
     file_name = file_name <> ".jpg"
     VhrRbt.Photo.take_pic(file_name)
+
+    IO.puts "FILE NAME"
+    IO.puts "URL: #{url}"
+    #url = "http://localhost:4000/photo"
 
     # file_name = "MembershipCard.png"
     #    response = HTTPoison.post url, "{\"body\": #{file_data}}", [{"Content-Type", "application/octet-stream" }]
@@ -70,7 +74,8 @@ use GenServer
     # {"name", "value"}]})
     response = HTTPoison.post(url, {:multipart, [{"id", "87937"}, {:file, file_name, {"form-data", [{"name", "photo"}, {"filename", Path.basename(file_name)}]}, []}]})
     
-    File.rm(file_name)
+    IO.puts "AFTER POST"
+    #    File.rm(file_name)
     {:reply, {response}, state}
   end
 end
