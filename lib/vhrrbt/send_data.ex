@@ -1,6 +1,9 @@
 defmodule VhrRbt.SendData do
+  @moduledoc """
+  Communication module; sends data to the `vhrctl`
+  """
 
-use GenServer
+  use GenServer
   @vhr_web_url   Application.get_env(:vhrrbt, :send_data_url)
   
   # Client

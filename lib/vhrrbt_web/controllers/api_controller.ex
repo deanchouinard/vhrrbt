@@ -1,4 +1,8 @@
 defmodule VhrRbtWeb.ApiController do
+  @moduledoc """
+  External API for the robot
+  """
+
   use VhrRbtWeb, :controller
 
   def env(conn, params) do
@@ -8,18 +12,26 @@ defmodule VhrRbtWeb.ApiController do
     json(conn, %{id: params["value"]})
   end
 
+  @doc """
+  Simple ping/pong implementation. Use to check if he robot
+  it there.
+  """
   def ping(conn, _params) do
     text(conn, "PONG: " <> VhrRbt.current_datetime_string)
   end
 
+  @doc """
+  Receives a request to take a picture. Sends command to take a
+  picture, and then returns the file name of the photo
+  """
   def take_picture(conn, _params) do
 
-    IO.puts "TAKE PICTURE"
-    {{:ok, %HTTPoison.Response{request: request}}} = VhrRbt.SendData.send_photo()
+    {{:ok, %HTTPoison.Response{request: request}}} =
+      VhrRbt.SendData.send_photo()
+    
     %HTTPoison.Request{body: {:multipart, [{_,_},
       {:file, filename, {_,[{_,_}, {_,_}]}, []} ]}} = request
 
-    IO.inspect filename, label: "SEND_PHOTO"
     json(conn, %{filename: "#{filename}"})
   end
 

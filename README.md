@@ -1,18 +1,20 @@
 # VhrRbt
+Program that runs on the robot. Receives and executes commands; sends
+environmental, photographs, and status data out.
 
-To start your Phoenix server:
+To start in development mode on host:
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server`
+    iex -S mix phx.server
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Runs at:
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+    http://localhost:4500
 
-## Learn more
+Development mode on robot device:
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+    MIX_TARGET=rpi3 iex -S mix phx.server
+
+Runs at:
+
+    http://192.168.0.184:4500
+

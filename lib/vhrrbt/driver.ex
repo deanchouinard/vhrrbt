@@ -1,4 +1,7 @@
 defmodule VhrRbt.Driver do
+  @moduledoc """
+  Runs on start up, and issues periodic commands
+  """
 
   use GenServer
 

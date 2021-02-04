@@ -1,4 +1,5 @@
 defmodule VhrRbt.Photo do
+  @moduledoc "Takes the photos"
 
   def take_pic(filename) do
     # filename = filename <> ".jpg"
