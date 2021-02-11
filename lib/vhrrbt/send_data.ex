@@ -5,13 +5,13 @@ defmodule VhrRbt.SendData do
 
   use GenServer
   @vhr_web_url   Application.get_env(:vhrrbt, :send_data_url)
-  
+
   # Client
 
   def start_link(default) when is_list(default) do
     GenServer.start_link(__MODULE__, default, name: __MODULE__)
   end
-  
+
   def send_data() do
     GenServer.call(__MODULE__, :send_data)
   end
@@ -52,8 +52,8 @@ defmodule VhrRbt.SendData do
 
   @impl true
   def handle_call(:send_photo, _from, state) do
-    headers = ""
-    options = ""
+    _headers = ""
+    _options = ""
     url = "#{@vhr_web_url}/photo"
     file_name = VhrRbt.current_datetime_string()
       |> String.replace(" ", "")
@@ -68,18 +68,17 @@ defmodule VhrRbt.SendData do
     # file_name = "MembershipCard.png"
     #    response = HTTPoison.post url, "{\"body\": #{file_data}}", [{"Content-Type", "application/octet-stream" }]
     #    response = HTTPoison.post(url, {:file, "MembershipCard.png"})
-    # response = HTTPoison.post!(url, 
-    #  {:multipart, [{:file, file_name, 
-    #    { ["form-data"], [name: "\"photo\"", 
+    # response = HTTPoison.post!(url,
+    #  {:multipart, [{:file, file_name,
+    #    { ["form-data"], [name: "\"photo\"",
     #      filename: "\"/path/to/file\""]},[]}]}, headers, options)
 
     #    response = HTTPoison.post!(url, {:multipart, [{:file, "MembershipCard.png"},
     # {"name", "value"}]})
     response = HTTPoison.post(url, {:multipart, [{"id", "87937"}, {:file, file_name, {"form-data", [{"name", "photo"}, {"filename", Path.basename(file_name)}]}, []}]})
-    
+
     IO.puts "AFTER POST"
-    #    File.rm(file_name)
+    File.rm(file_name)
     {:reply, {response}, state}
   end
 end
-

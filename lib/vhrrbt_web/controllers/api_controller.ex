@@ -12,6 +12,13 @@ defmodule VhrRbtWeb.ApiController do
     json(conn, %{id: params["value"]})
   end
 
+  def mv_rbt(conn, params) do
+    IO.inspect params, label: "MV_RBT"
+    %{"cmd" => cmd, "val" => val} = params
+    json(conn, %{id: "MV_RBT", cmd: cmd, val: val})
+  end
+
+
   @doc """
   Simple ping/pong implementation. Use to check if he robot
   it there.
