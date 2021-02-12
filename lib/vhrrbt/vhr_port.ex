@@ -11,10 +11,10 @@ defmodule VhrRbt.VhrPort do
 
   end
 
-  def add() do
+  def add(nums) do
 
     # add = fn port, nums ->
-    nums = [1,2,3,4,5]
+    #nums = [1,2,3,4,5]
     port = Port.open({:spawn, "python3 python_scripts/add.py"}, [:binary])
     # integers to a string
     msg =

@@ -15,7 +15,7 @@ defmodule VhrRbt.Driver do
   end
 
   def init(_) do
-    :timer.send_interval(50000, :ping)
+    #:timer.send_interval(50000, :ping)
     # {:ok, %SimpleCtrl{}}
     {:ok, []}
   end

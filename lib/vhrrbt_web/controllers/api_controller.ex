@@ -15,7 +15,8 @@ defmodule VhrRbtWeb.ApiController do
   def mv_rbt(conn, params) do
     IO.inspect params, label: "MV_RBT"
     %{"cmd" => cmd, "val" => val} = params
-    json(conn, %{id: "MV_RBT", cmd: cmd, val: val})
+    sum = VhrRbt.VhrPort.add [1,2,2]
+    json(conn, %{id: "MV_RBT", sum: sum, cmd: cmd, val: val})
   end
 
 
