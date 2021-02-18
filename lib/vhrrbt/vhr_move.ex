@@ -1,6 +1,8 @@
 defmodule VhrRbt.VhrMove do
   use GenServer
 
+  @vhr_python_script   Application.get_env(:vhrrbt, :python_script)
+
   def start_link(default) do
     GenServer.start_link(__MODULE__, default, name: __MODULE__)
   end
@@ -9,13 +11,29 @@ defmodule VhrRbt.VhrMove do
   def init(_) do
     #:timer.send_interval(50000, :ping)
     # {:ok, %SimpleCtrl{}}
-    port = Port.open({:spawn, "python3 python_scripts/add.py"}, [:binary])
+    #port = Port.open({:spawn, "python3 python_scripts/add.py"}, [:binary])
+    port = Port.open({:spawn, "python3 python_scripts/#{@vhr_python_script}"}, [:binary])
     {:ok, port}
+  end
+
+  def move_robot(cmd) do
+    GenServer.call(__MODULE__, {:move_robot, cmd})
   end
 
   def add(nums) do
     GenServer.call(__MODULE__, {:add, nums})
   end
+
+  def handle_call({:move_robot, cmd}, _from, state) do
+    Port.command(state, [cmd, "\n"])
+    answer = receive do
+      {^state, {:data, result}} ->
+        String.trim(result)
+        #    |> String.to_integer()
+    end
+    {:reply, answer, state}
+  end
+
 
   def handle_call({:add, nums}, _from, state) do
     # integers to a string

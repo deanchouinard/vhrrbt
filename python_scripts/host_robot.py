@@ -1,10 +1,9 @@
-# python_scripts/move_robot.py
-import gpiozero
+# python_scripts/host_robot.py
 import sys
 import time
 
 
-robot = gpiozero.Robot(left=(17,18), right=(27,22))
+# robot = gpiozero.Robot(left=(17,18), right=(27,22))
 
 
 for line in sys.stdin:
@@ -22,27 +21,27 @@ for line in sys.stdin:
     result = "Bad command"
 
     if line[0] == "L":
-        robot.left()
-        time.sleep(0.25)
-	robot.stop()
+        # robot.left()
+        # time.sleep(0.25)
+	# robot.stop()
         result = "Left"
 
     if line[0] == "R":
-        robot.right()
-        time.sleep(0.25)
-	robot.stop()
+        # robot.right()
+        # time.sleep(0.25)
+	# robot.stop()
         result = "Right"
 
     if line[0] == "F":
-        robot.forward()
-        time.sleep(0.25)
-	robot.stop()
+        # robot.forward()
+        # time.sleep(0.25)
+	# robot.stop()
         result = "Forward"
 
     if line[0] == "B":
-        robot.backward()
-        time.sleep(0.25)
-	robot.stop()
+        # robot.backward()
+        # time.sleep(0.25)
+	# robot.stop()
         result = "Backward"
 
 # 	if (buttons & cwiid.BTN_RIGHT):

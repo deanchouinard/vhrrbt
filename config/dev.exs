@@ -60,6 +60,7 @@ case Mix.target() do
     config :vhrrbt, VhrRbt.Sensor, [
       implementation: VhrRbt.BME
     ]
+    config :vhrrbt, python_script: 'host_robot.py'
 
   :rpi3 ->
     config :vhrrbt, VhrRbt.Light, [
@@ -69,5 +70,6 @@ case Mix.target() do
     config :vhrrbt, VhrRbt.Sensor, [
       implementation: VhrRbt.BMP
     ]
+    config :vhrrbt, python_script: 'move_robot.py'
 end
 
