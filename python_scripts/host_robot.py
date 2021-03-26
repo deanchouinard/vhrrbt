@@ -19,30 +19,33 @@ for line in sys.stdin:
     # result = sum(nums)
     
     result = "Bad command"
+    line = line.split(",")
+    cmd = line[0]
+    mag = int(line[1]) * .1
 
-    if line[0] == "L":
+    if cmd  == "L":
         # robot.left()
-        # time.sleep(0.25)
+        time.sleep(mag)
 	# robot.stop()
-        result = "Left"
+        result = "Left" + ":" + str(mag)
 
-    if line[0] == "R":
+    if cmd == "R":
         # robot.right()
-        # time.sleep(0.25)
+        time.sleep(mag)
 	# robot.stop()
-        result = "Right"
+        result = "Right" + ":" + str(mag)
 
-    if line[0] == "F":
+    if cmd == "F":
         # robot.forward()
-        # time.sleep(0.25)
+        time.sleep(mag)
 	# robot.stop()
-        result = "Forward"
+        result = "Forward" + ":" + str(mag)
 
-    if line[0] == "B":
+    if cmd == "B":
         # robot.backward()
-        # time.sleep(0.25)
+        time.sleep(mag)
 	# robot.stop()
-        result = "Backward"
+        result = "Backward" + ":" + str(mag)
 
 # 	if (buttons & cwiid.BTN_RIGHT):
 # 		robot.right()

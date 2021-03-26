@@ -6,7 +6,8 @@ defmodule VhrRbt.Application do
   use Application
 
   def start(_type, _args) do
-    children = [VhrRbt.SendData, VhrRbt.Driver, VhrRbt.Light,
+    children = [VhrRbt.VhrMove, VhrRbt.SendData, VhrRbt.Driver,
+      VhrRbt.Light,
       VhrRbt.Sensor,
       # Start the Telemetry supervisor
       VhrRbtWeb.Telemetry,

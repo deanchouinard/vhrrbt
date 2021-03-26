@@ -16,15 +16,16 @@ defmodule VhrRbt.VhrMove do
     {:ok, port}
   end
 
-  def move_robot(cmd) do
-    GenServer.call(__MODULE__, {:move_robot, cmd})
+  def move_robot(cmd, mag) do
+    GenServer.call(__MODULE__, {:move_robot, {cmd, mag}})
   end
 
   def add(nums) do
     GenServer.call(__MODULE__, {:add, nums})
   end
 
-  def handle_call({:move_robot, cmd}, _from, state) do
+  def handle_call({:move_robot, {cmd, mag}}, _from, state) do
+    cmd = cmd <> "," <> mag
     Port.command(state, [cmd, "\n"])
     answer = receive do
       {^state, {:data, result}} ->

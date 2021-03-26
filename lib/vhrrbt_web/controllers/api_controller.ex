@@ -2,7 +2,7 @@ defmodule VhrRbtWeb.ApiController do
   @moduledoc """
   External API for the robot
   """
-
+  alias VhrRbt.VhrMove
   use VhrRbtWeb, :controller
 
   def env(conn, params) do
@@ -12,6 +12,19 @@ defmodule VhrRbtWeb.ApiController do
     json(conn, %{id: params["value"]})
   end
 
+  def move(conn, params) do
+    IO.inspect conn, label: "CONN"
+    IO.inspect params, label: "PARAMS"
+    {:ok, body, conn} = Plug.Conn.read_body(conn, length: 1_000_000)
+    IO.inspect body, label: "BODY"
+    body = Poison.decode! body
+    IO.inspect body, label: "BODY"
+    %{"dir" => dir, "mag" => mag} = body
+    res = VhrMove.move_robot(dir, mag)
+    #json(conn, %{id: "from /api/env"})
+    json(conn, %{id: res})
+  end
+  
   def mv_rbt(conn, params) do
     IO.inspect params, label: "MV_RBT"
     %{"cmd" => cmd, "val" => val} = params
