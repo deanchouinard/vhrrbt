@@ -24,27 +24,15 @@ for line in sys.stdin:
     mag = int(line[1]) * .1
 
     if cmd  == "L":
-        # robot.left()
-        time.sleep(mag)
-	# robot.stop()
         result = "Left" + ":" + str(mag)
 
     if cmd == "R":
-        # robot.right()
-        time.sleep(mag)
-	# robot.stop()
         result = "Right" + ":" + str(mag)
 
     if cmd == "F":
-        # robot.forward()
-        time.sleep(mag)
-	# robot.stop()
         result = "Forward" + ":" + str(mag)
 
     if cmd == "B":
-        # robot.backward()
-        time.sleep(mag)
-	# robot.stop()
         result = "Backward" + ":" + str(mag)
 
 # 	if (buttons & cwiid.BTN_RIGHT):
