@@ -20,7 +20,7 @@ defmodule VhrRbt.MixProject do
   def application do
     [
       mod: {VhrRbt.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :inets]
     ]
   end
 

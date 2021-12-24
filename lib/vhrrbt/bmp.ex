@@ -1,6 +1,6 @@
 defmodule VhrRbt.BMP do
   @moduledoc """
-  Documentation for `BMP`.
+  VhrRbt.BMP communicates with the BMP280 sensor.
   """
   #  use GenServer
 
@@ -8,11 +8,11 @@ defmodule VhrRbt.BMP do
 
   # def start do
   #   GenServer.start(__MODULE__, nil, name: __MODULE__)
-  # end  
+  # end
 
   # def start do
   #   {:ok, bmp} = BMP280.start_link(bus_name: "i2c-1", bus_address: 0x76)
-  # end  
+  # end
 
   @impl VhrRbt.Sensor
   def init(_) do

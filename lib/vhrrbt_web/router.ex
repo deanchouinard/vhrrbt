@@ -16,5 +16,6 @@ defmodule VhrRbtWeb.Router do
     get "/take_picture", ApiController, :take_picture
     get "/mv_rbt", ApiController, :mv_rbt
     post "/move", ApiController, :move
+    get "/read_sensor", ApiController, :read_sensor
   end
 end
