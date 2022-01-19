@@ -24,7 +24,7 @@ for line in sys.stdin:
     if line[0] == "L":
         robot.left()
         time.sleep(0.25)
-	robot.stop()
+        robot.stop()
         result = "Left"
 
     if line[0] == "R":

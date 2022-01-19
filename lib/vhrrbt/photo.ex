@@ -5,10 +5,11 @@ defmodule VhrRbt.Photo do
     # filename = filename <> ".jpg"
     # System.cmd("raspistill", ["-n", "-q", "75", "-o", filename], stderr_to_stdout: true)
 
+    IO.puts "file copy"
 
     case Mix.target() do
       :host ->
-        File.cp("hot-dog.jpg", filename)
+        File.cp!("hot-dog.jpg", filename)
       :rpi3 ->
         System.cmd("raspistill", ["-n", "-q", "50", "-o", filename], stderr_to_stdout: true)
     end
@@ -16,4 +17,3 @@ defmodule VhrRbt.Photo do
   end
 
 end
-

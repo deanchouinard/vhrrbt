@@ -57,13 +57,20 @@ defmodule VhrRbtWeb.ApiController do
   """
   def take_picture(conn, _params) do
 
-    {{:ok, %HTTPoison.Response{request: request}}} =
-      VhrRbt.SendData.send_photo()
+    Task.Supervisor.start_child(VhrRbt.TaskSupervisor, PhotoTask, :run, ["x"], [])
+    #Supervisor.start_link([
+    #  {PhotoTask, []}
+    #], strategy: :one_for_one)
+    #Process.sleep(10_000)
+    IO.puts "take_picture"
+    #{{:ok, %HTTPoison.Response{request: request}}} =
+     # VhrRbt.SendData.send_photo()
 
-    %HTTPoison.Request{body: {:multipart, [{_,_},
-      {:file, filename, {_,[{_,_}, {_,_}]}, []} ]}} = request
+    #%HTTPoison.Request{body: {:multipart, [{_,_},
+    #  {:file, filename, {_,[{_,_}, {_,_}]}, []} ]}} = request
 
-    json(conn, %{filename: "#{filename}"})
+    #json(conn, %{filename: "#{filename}"})
+    json(conn, %{})
   end
 
 end
