@@ -47,6 +47,13 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
+config :vhrrbt, VhrRbtWeb.Endpoint,
+  watchers: [
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+  ]
+
+
 #case Mix.Project.config()[:target] do
 case Mix.target() do
   :host ->
