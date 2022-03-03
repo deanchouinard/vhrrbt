@@ -37,6 +37,9 @@ defmodule VhrRbtWeb do
       import Phoenix.Controller,
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
+      # added during conversion
+      import Phoenix.LiveView.Helpers
+
       # Include shared imports and aliases for views
       unquote(view_helpers())
     end
@@ -48,6 +51,7 @@ defmodule VhrRbtWeb do
 
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
@@ -60,6 +64,9 @@ defmodule VhrRbtWeb do
 
   defp view_helpers do
     quote do
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
